@@ -1,3 +1,4 @@
+// app/how-it-works/HowItWorksClient.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -11,33 +12,8 @@ type Slide = {
   bottomCard: { title: string; subtitle: string };
 };
 
-type Step = {
-  eyebrow: string;
-  title: string;
-  desc: string;
-};
-
-type FAQ = {
-  q: string;
-  a: string;
-};
-
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
-}
-
-function Chevron({ open }: { open: boolean }) {
-  return (
-    <span
-      className={cx(
-        "inline-block transition-transform duration-200",
-        open ? "rotate-180" : "rotate-0"
-      )}
-      aria-hidden="true"
-    >
-      ▾
-    </span>
-  );
 }
 
 export default function HowItWorksClient() {
@@ -53,7 +29,10 @@ export default function HowItWorksClient() {
         src: "/images/how-it-works/hiw-02-checkin.jpg",
         alt: "Check in with GPS and QR code",
         topToast: { title: "Check-In Confirmed", subtitle: "Court verified • run started" },
-        bottomCard: { title: "Check in (Verified)", subtitle: "GPS + QR verification • real presence • real courts" },
+        bottomCard: {
+          title: "Check in (Verified)",
+          subtitle: "GPS + QR verification • real presence • real courts",
+        },
       },
       {
         src: "/images/how-it-works/hiw-03-play.jpg",
@@ -65,54 +44,13 @@ export default function HowItWorksClient() {
     []
   );
 
-  const steps: Step[] = useMemo(
-    () => [
-      {
-        eyebrow: "Step 1",
-        title: "Open & Find a Court",
-        desc: "Launch M2DG and see nearby outdoor courts. Pick your spot and get ready to earn real progress.",
-      },
-      {
-        eyebrow: "Step 2",
-        title: "Check In (Verified)",
-        desc: "GPS + QR verification confirms you’re really there — no fake runs, no inflated stats, just real hoop work.",
-      },
-      {
-        eyebrow: "Step 3",
-        title: "Play, Track, & Level Up",
-        desc: "Complete missions, maintain streaks, earn badges, and climb rankings by court, city, and beyond.",
-      },
-    ],
-    []
-  );
-
-  const faqs: FAQ[] = useMemo(
-    () => [
-      {
-        q: "How does verification work?",
-        a: "M2DG uses GPS + QR-based check-ins to confirm real presence at real courts. That’s how effort becomes proof.",
-      },
-      {
-        q: "Do I need a team to use it?",
-        a: "No. You can run solo, join pickup, or build a squad. The platform is designed for real hoopers at every level.",
-      },
-      {
-        q: "What do I earn from missions and streaks?",
-        a: "Badges, consistency levels, and leaderboard placement — recognition tied to real activity, not algorithm hype.",
-      },
-      {
-        q: "Is this for pros only?",
-        a: "Not at all. M2DG is for anyone committed to the game — improving, staying in shape, or just showing up daily.",
-      },
-    ],
-    []
-  );
-
   const [index, setIndex] = useState(0);
   const [showBadge, setShowBadge] = useState(false);
-  const [openFAQ, setOpenFAQ] = useState<number | null>(0);
 
   const current = slides[index];
+  const prevIndex = (index - 1 + slides.length) % slides.length;
+  const nextIndex = (index + 1) % slides.length;
+
   const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
   const next = () => setIndex((i) => (i + 1) % slides.length);
 
@@ -125,9 +63,46 @@ export default function HowItWorksClient() {
     }
   }, [index, slides.length]);
 
+  // Data for the lower sections
+  const steps = [
+    {
+      label: "Step 1",
+      title: "Check In on Real Courts",
+      desc: "Open the app, find a nearby court, and check in with GPS + QR so every run is verified.",
+      image: "/images/tile-checkin.jpg",
+    },
+    {
+      label: "Step 2",
+      title: "Run Missions & Build Streaks",
+      desc: "Pick challenges that match your goals — consistency, conditioning, reps, or team play.",
+      image: "/images/tile-challenges.jpg",
+    },
+    {
+      label: "Step 3",
+      title: "Earn Badges & Climb the Ranks",
+      desc: "Turn discipline into visible progress with badges, streaks, and leaderboards that actually mean something.",
+      image: "/images/tile-badges.jpg",
+    },
+  ];
+
+  const runBenefits = [
+    {
+      title: "Verified Runs",
+      desc: "GPS + QR check-ins prove you really showed up.",
+    },
+    {
+      title: "Daily Momentum",
+      desc: "Missions and streaks keep you locked in — one day at a time.",
+    },
+    {
+      title: "Real Recognition",
+      desc: "Leaderboards, badges, and stats rooted in actual court time.",
+    },
+  ];
+
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
-      {/* HERO */}
+      {/* HERO CAROUSEL */}
       <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-black/40 shadow-[0_18px_60px_rgba(0,0,0,0.55)]">
         {/* soft background glow */}
         <div className="absolute inset-0">
@@ -149,8 +124,8 @@ export default function HowItWorksClient() {
             </h1>
 
             <p className="mt-4 max-w-xl text-white/70">
-              M2DG turns your court time into verified momentum — check in, complete missions,
-              earn badges, and climb the ranks.
+              M2DG turns your court time into verified momentum — check in, complete missions, earn badges, and climb the
+              ranks.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
@@ -191,19 +166,34 @@ export default function HowItWorksClient() {
           {/* RIGHT CAROUSEL */}
           <div className="relative">
             <div className="relative mx-auto w-full max-w-[520px]">
-              {/* stacked “phone” cards */}
-              <div className="absolute right-2 top-8 h-[420px] w-[300px] rotate-[10deg] rounded-[34px] border border-white/10 bg-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.55)] md:h-[520px] md:w-[360px]" />
-              <div className="absolute right-10 top-4 h-[420px] w-[300px] rotate-[4deg] rounded-[34px] border border-white/10 bg-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.55)] md:h-[520px] md:w-[360px]" />
-
-              {/* ACTIVE card */}
-              <div className="relative z-10 ml-auto h-[420px] w-[300px] rotate-[-6deg] overflow-hidden rounded-[34px] border border-white/10 bg-black shadow-[0_22px_70px_rgba(0,0,0,0.65)] md:h-[520px] md:w-[360px]">
+              {/* BACK CARD (prev slide) */}
+              <div className="absolute right-10 top-6 h-[420px] w-[300px] rotate-[6deg] overflow-hidden rounded-[34px] border border-white/10 bg-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.55)] md:h-[520px] md:w-[360px]">
                 <img
-                  src={current.src}
-                  alt={current.alt}
-                  className="h-full w-full object-cover"
+                  src={slides[prevIndex].src}
+                  alt={slides[prevIndex].alt}
+                  className="h-full w-full object-cover opacity-70"
                   draggable={false}
                 />
+                <div className="absolute inset-0 bg-black/35" />
+              </div>
 
+              {/* BACK CARD (next slide) */}
+              <div className="absolute right-2 top-10 h-[420px] w-[300px] rotate-[10deg] overflow-hidden rounded-[34px] border border-white/10 bg-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.55)] md:h-[520px] md:w-[360px]">
+                <img
+                  src={slides[nextIndex].src}
+                  alt={slides[nextIndex].alt}
+                  className="h-full w-full object-cover opacity-70"
+                  draggable={false}
+                />
+                <div className="absolute inset-0 bg-black/35" />
+              </div>
+
+              {/* ACTIVE CARD */}
+              <div className="relative z-10 ml-auto h-[420px] w-[300px] rotate-[-6deg] overflow-hidden rounded-[34px] border border-white/10 bg-black shadow-[0_22px_70px_rgba(0,0,0,0.65)] md:h-[520px] md:w-[360px]">
+                {/* image */}
+                <img src={current.src} alt={current.alt} className="h-full w-full object-cover" draggable={false} />
+
+                {/* glass overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/55" />
 
                 {/* TOP TOAST */}
@@ -230,7 +220,7 @@ export default function HowItWorksClient() {
                 {/* BADGE UNLOCK overlay */}
                 <div
                   className={cx(
-                    "pointer-events-none absolute inset-0 grid place-items-center transition-opacity duration-300",
+                    "pointer-events-none absolute inset-0 grid place-items-center transition-opacity",
                     showBadge ? "opacity-100" : "opacity-0"
                   )}
                 >
@@ -250,6 +240,7 @@ export default function HowItWorksClient() {
                   type="button"
                   onClick={prev}
                   className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-black/35 px-4 py-2 text-sm font-extrabold text-white/90 hover:border-white/25"
+                  aria-label="Previous slide"
                 >
                   Prev
                 </button>
@@ -262,6 +253,7 @@ export default function HowItWorksClient() {
                   type="button"
                   onClick={next}
                   className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-black/35 px-4 py-2 text-sm font-extrabold text-white/90 hover:border-white/25"
+                  aria-label="Next slide"
                 >
                   Next
                 </button>
@@ -275,82 +267,74 @@ export default function HowItWorksClient() {
         </div>
       </div>
 
-      {/* STEPS */}
-      <div className="mt-14">
-        <h2 className="text-4xl font-black tracking-tight">How it Works</h2>
-        <p className="mt-3 max-w-3xl text-white/65">
-          Simple flow. Real-world verification. Progress you can prove.
+      {/* STEP-BY-STEP SECTION */}
+      <div className="mt-16">
+        <h2 className="text-3xl font-black tracking-tight md:text-4xl">How It Works, Step by Step</h2>
+        <p className="mt-3 max-w-3xl text-white/70">
+          The flow is simple on purpose: open the app, verify your run, and let the system handle missions,
+          streaks, and recognition while you hoop.
         </p>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {steps.map((s) => (
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          {steps.map((step) => (
             <div
-              key={s.title}
-              className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_18px_45px_rgba(0,0,0,0.35)]"
+              key={step.title}
+              className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_45px_rgba(0,0,0,0.35)]"
             >
-              <div className="text-xs font-black tracking-wide text-[#D4AF37]">{s.eyebrow}</div>
-              <div className="mt-2 text-2xl font-extrabold">{s.title}</div>
-              <div className="mt-3 text-white/70">{s.desc}</div>
+              <div className="text-xs font-black uppercase tracking-wide text-[#D4AF37]">{step.label}</div>
+
+              <div className="mt-3 aspect-[16/10] overflow-hidden rounded-2xl border border-white/10">
+                <img
+                  src={step.image}
+                  alt={step.title}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+
+              <div className="mt-4 text-lg font-extrabold">{step.title}</div>
+              <div className="mt-2 text-sm text-white/75">{step.desc}</div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* FAQ */}
-      <div className="mt-14">
-        <h3 className="text-3xl font-black tracking-tight">FAQ</h3>
-        <p className="mt-2 max-w-2xl text-white/65">
-          Quick answers about verification, missions, and what you’re building toward.
-        </p>
+      {/* RUN BENEFITS / SUMMARY STRIP */}
+      <div className="mt-14 rounded-3xl border border-white/10 bg-black/40 p-6">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div>
+            <div className="text-sm font-black uppercase tracking-wide text-[#D4AF37]">
+              Every verified run gives you:
+            </div>
+            <div className="mt-2 text-xl font-extrabold">
+              Proof you showed up, structure for your grind, and recognition for the work.
+            </div>
+          </div>
+          <BadgePill text="Discipline Engine" tone="orange" />
+        </div>
 
-        <div className="mt-8 space-y-3">
-          {faqs.map((f, i) => {
-            const open = openFAQ === i;
-            return (
-              <div
-                key={f.q}
-                className="rounded-2xl border border-white/10 bg-white/5"
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpenFAQ(open ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 px-6 py-4 text-left"
-                >
-                  <span className="text-base font-extrabold text-white">{f.q}</span>
-                  <span className="text-white/60">
-                    <Chevron open={open} />
-                  </span>
-                </button>
-
-                <div
-                  className={cx(
-                    "grid transition-[grid-template-rows] duration-200 ease-out",
-                    open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                  )}
-                >
-                  <div className="overflow-hidden px-6 pb-5 text-white/70">
-                    {f.a}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {runBenefits.map((b) => (
+            <div key={b.title} className="rounded-2xl border border-white/10 bg-black/35 p-5">
+              <div className="text-lg font-extrabold">{b.title}</div>
+              <div className="mt-2 text-sm text-white/75">{b.desc}</div>
+            </div>
+          ))}
         </div>
       </div>
 
       {/* FINAL CTA */}
-      <div className="mt-14 rounded-3xl border border-white/10 bg-gradient-to-r from-[#FF8C00]/15 via-white/5 to-[#C8102E]/10 p-8">
+      <div className="mt-12 rounded-3xl border border-white/10 bg-gradient-to-r from-[#FF8C00]/15 via-white/5 to-[#C8102E]/10 p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <div className="text-2xl font-black">Ready to be early?</div>
-            <div className="mt-1 text-white/70">
-              Join the waitlist for early invites, perks, and first-run access.
+            <div className="text-xl font-black">Ready to turn your runs into receipts?</div>
+            <div className="mt-1 text-sm text-white/75">
+              Join the waitlist to lock in early access, launch perks, and first shot at verified leaderboards.
             </div>
           </div>
-
           <Link
             href="/waitlist"
-            className="rounded-xl bg-[#FF8C00] px-7 py-3 text-center font-extrabold text-black hover:brightness-110"
+            className="rounded-xl bg-[#FF8C00] px-6 py-3 text-center font-extrabold text-black hover:brightness-110"
           >
             Join the Waitlist
           </Link>

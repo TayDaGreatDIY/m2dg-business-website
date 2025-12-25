@@ -1,183 +1,153 @@
 // app/app/page.tsx
-"use client";
-
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import BadgePill from "@/components/BadgePill";
 
-type HubCard = {
-  title: string;
-  pill: string;
-  pillTone?: "gold" | "orange" | "red" | "blue";
-  desc: string;
-  micro: string;
-  cta: string;
+export const metadata = {
+  title: "M2DG — App Hub Preview",
+  description:
+    "Preview the M2DG App Hub dashboard — check-ins, challenges, badges, leaderboards, and daily motivation for real hoopers.",
 };
 
-const cards: HubCard[] = [
+type HubCard = {
+  label: string;
+  title: string;
+  description: string;
+  cta: string;
+  image: string;
+};
+
+const primaryCards: HubCard[] = [
   {
-    title: "Check In",
-    pill: "NEW",
-    pillTone: "gold",
-    desc: "GPS + QR • Verified play at real courts.",
-    micro: "Show up today. Let your consistency speak for you.",
+    label: "Check In",
+    title: "Lock in real runs.",
+    description: "GPS + QR-verified play at real courts.",
     cta: "Start",
+    image: "/images/tile-checkin.jpg",
   },
   {
-    title: "Challenges",
-    pill: "NEW",
-    pillTone: "gold",
-    desc: "Daily missions • Skills, conditioning, mindset.",
-    micro: "Win the day. Small reps become big results.",
+    label: "Challenges",
+    title: "Stack wins daily.",
+    description: "Missions and skill work that add up over time.",
     cta: "Play",
+    image: "/images/tile-challenges.jpg",
   },
   {
-    title: "Badges",
-    pill: "NEW",
-    pillTone: "red",
-    desc: "Collect • Level up • Build your identity.",
-    micro: "Earn it. Your work deserves proof.",
+    label: "Badges",
+    title: "Let your work show.",
+    description: "Collect discipline-driven rewards — not just highlights.",
     cta: "View",
+    image: "/images/tile-badges.jpg",
   },
   {
-    title: "Leaderboards",
-    pill: "NEW",
-    pillTone: "blue",
-    desc: "Court → City → Global • Positive competition.",
-    micro: "Climb with discipline — not noise.",
+    label: "Leaderboards",
+    title: "Climb the ranks.",
+    description: "Court → City → Global. Earn your spot with consistency.",
     cta: "Rank",
+    image: "/images/tile-leaderboards.jpg",
   },
 ];
 
 export default function AppHubPage() {
-  const [introOn, setIntroOn] = useState(false);
-
-  // Subtle “welcome” animation on load (no libs needed)
-  useEffect(() => {
-    const t = setTimeout(() => setIntroOn(true), 60);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12">
-      <div className="rounded-[28px] border border-white/10 bg-black/40 p-8 shadow-[0_18px_60px_rgba(0,0,0,0.55)] md:p-10">
-        {/* Header */}
-        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-          <div className="max-w-3xl">
-            <BadgePill text="App Hub Preview" tone="orange" />
+    <section className="mx-auto max-w-6xl px-4 py-10">
+      <div className="rounded-3xl border border-white/10 bg-black/40 p-6 shadow-[0_18px_60px_rgba(0,0,0,0.6)] md:p-8">
+        <BadgePill text="App Hub Preview" tone="gold" />
 
-            <h1
-              className={[
-                "mt-4 text-4xl font-black tracking-tight md:text-5xl",
-                "transition-all duration-700 ease-out",
-                introOn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
-              ].join(" ")}
-            >
-              Welcome Back, Hooper
-            </h1>
+        {/* animated welcome text handled via simple CSS (can enhance later if needed) */}
+        <h1 className="mt-4 text-3xl font-black tracking-tight md:text-4xl">
+          Welcome Back, Hooper
+        </h1>
+        <p className="mt-2 max-w-2xl text-sm text-white/75 md:text-base">
+          You showed up. Now lock in. Every check-in, mission, and run pushes
+          you closer to the player you&apos;re becoming.
+        </p>
 
-            <p
-              className={[
-                "mt-3 max-w-2xl text-white/75",
-                "transition-all duration-700 ease-out delay-100",
-                introOn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
-              ].join(" ")}
-            >
-              You showed up. Now lock in. Every check-in, mission, and run pushes you closer to the player you’re becoming.
-            </p>
-          </div>
-
-          <div
-            className={[
-              "transition-all duration-700 ease-out delay-150",
-              introOn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
-            ].join(" ")}
+        <div className="mt-4 flex justify-end">
+          <Link
+            href="/waitlist"
+            className="rounded-xl bg-[#FF8C00] px-5 py-2.5 text-sm font-extrabold text-black hover:brightness-110"
           >
-            <Link
-              href="/waitlist"
-              className="inline-flex rounded-xl bg-[#FF8C00] px-6 py-3 text-sm font-extrabold text-black hover:brightness-110"
-            >
-              Get Early Access
-            </Link>
-          </div>
+            Get Early Access
+          </Link>
         </div>
 
-        {/* Cards */}
-        <div className="mt-10 grid gap-6 md:grid-cols-4">
-          {cards.map((c) => (
+        {/* Primary feature row */}
+        <div className="mt-6 grid gap-4 md:grid-cols-4">
+          {primaryCards.map((card) => (
             <div
-              key={c.title}
-              className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_18px_45px_rgba(0,0,0,0.35)]"
+              key={card.label}
+              className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_16px_40px_rgba(0,0,0,0.45)]"
             >
-              <div className="flex items-center justify-between">
-                <div className="text-lg font-extrabold">{c.title}</div>
-                <span
-                  className={[
-                    "inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-black tracking-wide",
-                    c.pillTone === "red"
-                      ? "bg-[#C8102E]/20 text-[#ff7a92] border border-[#C8102E]/30"
-                      : c.pillTone === "blue"
-                      ? "bg-blue-500/15 text-blue-200 border border-blue-500/25"
-                      : "bg-[#D4AF37]/15 text-[#D4AF37] border border-[#D4AF37]/25",
-                  ].join(" ")}
-                >
-                  {c.pill}
+              <div className="flex items-center justify-between text-xs font-black text-white/80">
+                <span>{card.label}</span>
+                <span className="rounded-full bg-[#FF8C00]/15 px-2 py-0.5 text-[10px] uppercase tracking-wide text-[#FFB347]">
+                  New
                 </span>
               </div>
 
-              {/* Placeholder image / icon block */}
-              <div className="mt-4 grid aspect-square place-items-center rounded-2xl border border-white/10 bg-black/30">
-                <div className="text-xs font-bold text-white/60">ICON / IMAGE</div>
+              {/* Image tile */}
+              <div
+                className="mt-3 aspect-[4/3] overflow-hidden rounded-xl border border-white/10 bg-black/50"
+                style={{
+                  backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.65)), url('${card.image}')`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+                aria-label={`${card.label} preview`}
+              />
+
+              {/* Micro motivation copy */}
+              <div className="mt-3 text-xs font-bold text-white/90">
+                {card.title}
               </div>
+              <div className="mt-1 text-xs text-white/65">{card.description}</div>
 
-              <div className="mt-4 text-sm text-white/75">{c.desc}</div>
-              <div className="mt-2 text-xs text-white/60">{c.micro}</div>
-
-              <button
-                type="button"
-                className="mt-5 w-full rounded-xl bg-[#FF8C00] px-5 py-2.5 text-sm font-extrabold text-black hover:brightness-110"
-              >
-                {c.cta}
+              <button className="mt-4 rounded-xl bg-[#FF8C00] px-3 py-2 text-xs font-extrabold text-black hover:brightness-110">
+                {card.cta}
               </button>
             </div>
           ))}
         </div>
 
-        {/* Mini strips */}
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-black/30 p-5">
-            <div className="text-lg font-extrabold">Today’s Focus</div>
-            <div className="mt-1 text-sm text-white/70">Pick a challenge and lock your streak.</div>
+        {/* Secondary strip */}
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <div className="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm">
+            <div className="font-extrabold text-white/90">Today&apos;s Focus</div>
+            <div className="mt-1 text-xs text-white/70">
+              Pick a challenge and lock your streak.
+            </div>
           </div>
-
-          <div className="rounded-2xl border border-white/10 bg-black/30 p-5">
-            <div className="text-lg font-extrabold">Consistency Score</div>
-            <div className="mt-1 text-sm text-white/70">Show up often. Improve faster.</div>
+          <div className="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm">
+            <div className="font-extrabold text-white/90">Consistency Score</div>
+            <div className="mt-1 text-xs text-white/70">
+              Show up often. Improve faster.
+            </div>
           </div>
-
-          <div className="rounded-2xl border border-white/10 bg-black/30 p-5">
-            <div className="text-lg font-extrabold">Community Energy</div>
-            <div className="mt-1 text-sm text-white/70">Compete with positivity — earn respect.</div>
+          <div className="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm">
+            <div className="font-extrabold text-white/90">Community Energy</div>
+            <div className="mt-1 text-xs text-white/70">
+              Compete with positivity — earn respect.
+            </div>
           </div>
         </div>
 
-        {/* Bottom CTA bar */}
-        <div className="mt-10 rounded-3xl border border-white/10 bg-gradient-to-r from-[#FF8C00]/15 via-white/5 to-[#C8102E]/10 p-6">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <div className="text-xl font-black">Coming Soon: Verified Runs + Missions + Rewards</div>
-              <div className="mt-1 text-sm text-white/70">
-                We’re building the full M2DG experience — real courts, real effort, real progress you can track and celebrate.
-              </div>
+        {/* Coming soon strip */}
+        <div className="mt-8 flex flex-col gap-4 rounded-2xl border border-white/10 bg-gradient-to-r from-[#FF8C00]/15 via-black/40 to-[#C8102E]/15 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-6">
+          <div>
+            <div className="text-sm font-black md:text-base">
+              Coming Soon: Verified Runs + Missions + Rewards
             </div>
-
-            <Link
-              href="/waitlist"
-              className="inline-flex rounded-xl border border-white/15 bg-black/35 px-6 py-3 text-sm font-extrabold text-white/90 hover:border-white/25"
-            >
-              Join the Waitlist
-            </Link>
+            <div className="mt-1 text-xs text-white/75 md:text-sm">
+              We&apos;re building the full M2DG experience — real courts, real
+              effort, real progress you can track and celebrate.
+            </div>
           </div>
+          <Link
+            href="/waitlist"
+            className="rounded-xl bg-[#FF8C00] px-5 py-2.5 text-center text-xs font-extrabold text-black hover:brightness-110 md:text-sm"
+          >
+            Join the Waitlist
+          </Link>
         </div>
       </div>
     </section>
