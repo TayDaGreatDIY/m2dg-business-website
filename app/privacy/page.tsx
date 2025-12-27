@@ -1,44 +1,78 @@
-import BadgePill from "@/components/BadgePill";
-
-export const metadata = {
-  title: "M2DG — Privacy",
-  description: "M2DG privacy policy.",
-};
-
 export default function PrivacyPage() {
   return (
-    <section className="mx-auto max-w-3xl px-4 py-14">
-      <BadgePill text="Privacy" tone="gold" />
-      <h1 className="mt-4 text-4xl font-black">Privacy Policy</h1>
+    <div className="mx-auto max-w-4xl px-4 py-14">
+      <h1 className="text-4xl font-black">Privacy Policy</h1>
+      <p className="mt-2 text-white/70">Last updated: {new Date().toLocaleDateString()}</p>
 
-      <p className="mt-4 text-white/70">
-        This is a placeholder privacy policy page. Before launch, we’ll finalize how we handle data like check-ins,
-        account info, and analytics.
-      </p>
-
-      <div className="mt-6 space-y-4 text-white/75">
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-          <div className="text-lg font-extrabold">What we collect</div>
-          <p className="mt-2 text-sm">
-            Basic account details and app usage data required to operate features like check-ins, missions, badges, and
-            rankings.
+      <div className="mt-8 space-y-8 text-white/85 leading-relaxed">
+        <section>
+          <h2 className="text-xl font-extrabold">1. Overview</h2>
+          <p className="mt-2">
+            M2DG (“Married 2 Da Game,” “we,” “us”) respects your privacy. This Privacy Policy
+            explains what information we collect, how we use it, and the choices you have when
+            you visit our website or join our waitlist.
           </p>
-        </div>
+        </section>
 
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-          <div className="text-lg font-extrabold">How we use it</div>
-          <p className="mt-2 text-sm">
-            To verify activity, improve the product, prevent abuse, and deliver the experience safely.
-          </p>
-        </div>
+        <section>
+          <h2 className="text-xl font-extrabold">2. Information We Collect</h2>
+          <ul className="mt-2 list-disc pl-6 space-y-2">
+            <li><b>Waitlist info:</b> name, email, and any optional info you submit.</li>
+            <li><b>Usage data:</b> pages viewed, device/browser details, and approximate location (city/state) from IP.</li>
+            <li><b>Cookies:</b> basic cookies for site functionality and analytics (if enabled).</li>
+          </ul>
+        </section>
 
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-          <div className="text-lg font-extrabold">Contact</div>
-          <p className="mt-2 text-sm">
-            Questions? Email us at <span className="text-white/90 font-bold">married2dagame4444@gmail.com</span>.
+        <section>
+          <h2 className="text-xl font-extrabold">3. How We Use Information</h2>
+          <ul className="mt-2 list-disc pl-6 space-y-2">
+            <li>Operate and improve the website and experience.</li>
+            <li>Contact you about the waitlist, updates, and launch info.</li>
+            <li>Protect against abuse, fraud, and security issues.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-extrabold">4. Sharing</h2>
+          <p className="mt-2">
+            We do not sell your personal information. We may share information with service
+            providers who help us run the site (e.g., hosting, email, analytics), and when
+            required by law or to protect our rights and users.
           </p>
-        </div>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-extrabold">5. Children’s Privacy</h2>
+          <p className="mt-2">
+            M2DG is designed to be kid-safe and family-friendly. If we learn we collected personal
+            information from a child in a way that requires parental consent, we will take steps
+            to delete it or obtain consent as required.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-extrabold">6. Security</h2>
+          <p className="mt-2">
+            We use reasonable administrative, technical, and physical safeguards to protect
+            information. No method of transmission or storage is 100% secure.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-extrabold">7. Your Choices</h2>
+          <ul className="mt-2 list-disc pl-6 space-y-2">
+            <li>You can request removal from the waitlist at any time.</li>
+            <li>You can control cookies in your browser settings.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-extrabold">8. Contact</h2>
+          <p className="mt-2">
+            Questions? Email us at <b>support@m2dg.io</b>.
+          </p>
+        </section>
       </div>
-    </section>
+    </div>
   );
 }

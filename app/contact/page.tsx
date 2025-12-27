@@ -19,14 +19,14 @@ export default function ContactPage() {
       <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6">
         <div className="text-lg font-extrabold">Email</div>
         <p className="mt-2 text-sm text-white/75">
-          <a className="font-bold text-white hover:underline" href="mailto:married2dagame4444@gmail.com">
-            married2dagame4444@gmail.com
+          <a className="font-bold text-white hover:underline" href="mailto:Support@m2dg.io">
+            Support@m2dg.io
           </a>
         </p>
 
         <div className="mt-5 flex flex-wrap gap-3">
           <a
-            href="mailto:married2dagame4444@gmail.com?subject=M2DG%20Website%20Contact"
+            href="mailto:support@m2dg.io.com?subject=M2DG%20Website%20Contact"
             className="rounded-xl bg-[#FF8C00] px-6 py-3 font-extrabold text-black hover:brightness-110"
           >
             Email M2DG

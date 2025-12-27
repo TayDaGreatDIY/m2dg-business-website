@@ -68,9 +68,9 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+      <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex shrink-0 items-center gap-3">
           <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/15 bg-white/5">
             <Image
               src="/brand/m2dg-logo.png"
@@ -86,8 +86,8 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop nav (sm and up) */}
-        <nav className="hidden items-center gap-2 sm:flex">
+        {/* Desktop nav (md and up) */}
+        <nav className="hidden flex-1 items-center justify-center gap-2 md:flex">
           {navLinks.map((l) => (
             <NavLink
               key={l.href}
@@ -99,10 +99,10 @@ export default function Navbar() {
         </nav>
 
         {/* Right actions */}
-        <div className="flex items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2">
           <Link
             href="/app"
-            className="hidden rounded-xl border border-white/15 px-4 py-2 text-sm font-extrabold text-white/90 hover:border-white/25 sm:inline-flex"
+            className="hidden rounded-xl border border-white/15 px-4 py-2 text-sm font-extrabold text-white/90 hover:border-white/25 md:inline-flex"
           >
             Open App Hub
           </Link>
@@ -114,10 +114,10 @@ export default function Navbar() {
             Join the Waitlist
           </Link>
 
-          {/* Mobile hamburger (below sm) */}
+          {/* Hamburger (below md) */}
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white sm:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white md:hidden"
             aria-label="Open menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -136,7 +136,7 @@ export default function Navbar() {
 
       {/* Mobile panel */}
       {open && (
-        <div className="sm:hidden">
+        <div className="md:hidden">
           <div className="mx-auto max-w-6xl px-4 pb-4">
             <div
               ref={panelRef}
